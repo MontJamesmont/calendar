@@ -9,7 +9,10 @@ const routes: Routes = [
     path: '', redirectTo: '/app', pathMatch: 'full'
   },
   {
-    path: 'app', component: MainComponent, children: []
+    path: 'app', component: MainComponent, children: [
+      { path: '', redirectTo: '/app/calendar', pathMatch: 'full' },
+      { path: 'calendar', loadChildren: './calendar/calendar.module#CalendarModule' }
+    ]
   }
 ];
 
