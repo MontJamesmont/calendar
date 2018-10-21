@@ -1,0 +1,20 @@
+@import '~src/styles/base/_base'
+
+\:host
+  display: block
+  height: 100vh
+  overflow: hidden
+
+#main
+  display: flex
+  height: 100%
+  padding-top: $layout-header-height-with-border
+
+#content
+  width: calc(100vw - #{$layout-main-menu-width})
+  height: 100%
+  flex-grow: 1
+
+.col-md-1, .col-md-11, .col-md-12
+  padding: 0
+  margin: 0
