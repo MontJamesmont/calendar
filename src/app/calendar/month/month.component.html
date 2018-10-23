@@ -13,7 +13,7 @@
     <div class="month-days-week" *ngFor="let week of days">
       <div class="month-days-week-day" *ngFor="let day of week">
         <div class="month-days-week-dayNumber">{{day.getDate()}}</div>
-        <div *ngFor="let event of getEventsInDay(day) | slice:0:3;">
+        <div *ngFor="let event of getEventsInDay(day) | slice:0:2;">
           <div class="month-days-week-dayEvent" *ngIf="isEventDay(event, day)">
             {{event.type}}
           </div>

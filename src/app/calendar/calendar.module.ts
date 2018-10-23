@@ -6,14 +6,15 @@ import { SharedModule } from '../shared/shared.module';
 import { MomentModule } from 'angular2-moment';
 
 import { CalendarComponent } from './calendar.component';
-import { CalendarService } from './calendar.service';
 import { MonthComponent } from './month/month.component';
+import { DayComponent } from './day/day.component';
 
 const routes: Routes = [
   {
     path: '', component: CalendarComponent, children: [
       { path: '', redirectTo: 'month', pathMatch: 'full' },
-      { path: 'month', component: MonthComponent }
+      { path: 'month', component: MonthComponent },
+      { path: 'day/:date', component: DayComponent }
     ]
   }
 ];
@@ -28,10 +29,9 @@ const routes: Routes = [
   declarations: [
     CalendarComponent,
     MonthComponent,
+    DayComponent
   ],
-  providers: [
-    CalendarService,
-  ],
+  providers: [],
   exports: []
 })
 export class CalendarModule { }

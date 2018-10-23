@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
@@ -16,7 +16,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Input() notificationsCount: number;
 
   constructor(
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private router: Router
   ) {
     this.notificationsCount = 0;
   }
@@ -30,6 +31,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     );
 
+  }
+
+  getToday(): number {
+    const day = new Date();
+    day.setHours(0, 0, 0, 0);
+    return day.getTime();
   }
 
   ngOnDestroy(): void {
