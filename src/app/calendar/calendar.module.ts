@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
-import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '../shared/shared.module';
+import { MomentModule } from 'angular2-moment';
 
 import { CalendarComponent } from './calendar.component';
 import { CalendarService } from './calendar.service';
-
 import { MonthComponent } from './month/month.component';
 
 const routes: Routes = [
@@ -21,7 +21,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    TranslateModule.forChild({}),
+    SharedModule,
+    MomentModule,
     RouterModule.forChild(routes)
   ],
   declarations: [
