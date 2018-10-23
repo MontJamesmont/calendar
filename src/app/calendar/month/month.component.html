@@ -1,1 +1,19 @@
-{{ 'month' | translate}}
+<div class="month">
+  <div class="month-header">
+    <div class="month-header-year">{{selectedDate | amDateFormat:'YYYY'}}</div>
+    <span class="month-header-goPrev" [inlineSVG]="'arrow-left.svg'" (click)="changeMonth(-1)">
+    </span>
+    <span class="month-header-selected">
+      {{selectedDate | amLocale: globalLang | amDateFormat:'MMMM'}}
+    </span>
+    <span class="month-header-goNext" [inlineSVG]="'arrow-right.svg'" (click)="changeMonth(1)">
+    </span>
+  </div>
+  <div class="month-days">
+    <div class="month-days-week" *ngFor="let week of days">
+      <span class="month-days-week-day" *ngFor="let day of week">
+        <div class="month-days-week-dayNumber">{{day.getDate()}}</div>
+      </span>
+    </div>
+  </div>
+</div>
