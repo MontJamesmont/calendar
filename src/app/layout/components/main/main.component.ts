@@ -33,7 +33,7 @@ export class MainComponent implements OnInit, OnDestroy {
       this.globalLang = this.translateService.currentLang;
     });
 
-    this.todayEventsSubscription = this.eventService.getEvents(today).subscribe((eventsList: Event[]) => {
+    this.todayEventsSubscription = this.eventService.getEvents().subscribe((eventsList: Event[]) => {
       this.todayEvents = eventsList.filter((event: Event) => {
         return event.date === today.getTime();
       });
