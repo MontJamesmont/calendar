@@ -14,7 +14,7 @@ export class AppComponent {
     this.title = 'calendar';
 
     translate.addLangs(Settings.LANGS);
-    translate.setDefaultLang('en');
-    translate.use('en');
+    translate.setDefaultLang('pl');
+    translate.use('pl');
   }
 }
