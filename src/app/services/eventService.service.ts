@@ -14,7 +14,7 @@ export class EventService {
     private http: HttpClient
   ) { }
 
-  public getEvents = (day: Date): Observable<Event[]> => {
+  public getEvents = (): Observable<Event[]> => {
     return this.http.get<Event[]>(this.events);
   }
 }

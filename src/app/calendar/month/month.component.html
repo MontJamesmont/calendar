@@ -11,9 +11,18 @@
   </div>
   <div class="month-days">
     <div class="month-days-week" *ngFor="let week of days">
-      <span class="month-days-week-day" *ngFor="let day of week">
+      <div class="month-days-week-day" *ngFor="let day of week">
         <div class="month-days-week-dayNumber">{{day.getDate()}}</div>
-      </span>
+        <div *ngFor="let event of getEventsInDay(day) | slice:0:3;">
+          <div class="month-days-week-dayEvent" *ngIf="isEventDay(event, day)">
+            {{event.type}}
+          </div>
+        </div>
+        <button type="button" class="month-days-week-day-showMore btn btn-primary" *ngIf="getEventsInDay(day).length > 2"
+          (click)="showDay(day)">
+          {{'more' | translate}}
+        </button>
+      </div>
     </div>
   </div>
 </div>

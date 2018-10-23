@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 import { CalendarService } from '../calendar.service';
+import { Event } from '../../shared/interfaces/event';
+import { EventService } from '../../services/eventService.service';
 
 @Component({
   selector: 'app-month',
@@ -11,12 +14,17 @@ export class MonthComponent implements OnInit {
   selectedDate: Date;
   globalLang: string;
   days: Date[][];
+  events: Event[];
+  monthEventsSubscription: Subscription;
+
   constructor(
     private calendarService: CalendarService,
+    private eventService: EventService,
     private translateService: TranslateService
   ) {
     this.selectedDate = new Date();
     this.selectedDate.setHours(0, 0, 0, 0);
+    this.events = [];
 
     this.globalLang = this.translateService.currentLang;
     this.fillDays();
@@ -48,6 +56,24 @@ export class MonthComponent implements OnInit {
     }
   }
 
+  ngOnInit(): void {
+    this.monthEventsSubscription = this.eventService.getEvents().subscribe((eventsList: Event[]) => {
+      this.events = eventsList;
+    });
+  }
+
+  getEventsInDay(day: Date): Event[] {
+    return this.events.filter((event: Event) => {
+      return this.isEventDay(event, day);
+    });
+  }
+
+  isEventDay(event: Event, day: Date): boolean {
+    day.setHours(0, 0, 0, 0);
+    if (day.getTime() === event.date) return true;
+    return false;
+  }
+
   changeMonth(direct: number): void {
     const year = this.selectedDate.getFullYear(),
       month = this.selectedDate.getMonth();
@@ -55,6 +81,7 @@ export class MonthComponent implements OnInit {
     this.fillDays();
   }
 
-  ngOnInit(): void {
+  showDay(day: Date): void {
+
   }
 }
