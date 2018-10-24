@@ -1,0 +1,11 @@
+<div class="day">
+  <div class="day-date">{{ day | amLocale: globalLang | amDateFormat:'LL' }}</div>
+  <div class="day-events">
+    <div class="day-event" *ngFor="let event of events">
+      <div class="day-event-type">{{event.type}}</div>
+      <div class="day-event-members">
+        <span class="day-event-member" *ngFor="let member of event.members">{{member}}</span>
+      </div>
+    </div>
+  </div>
+</div>

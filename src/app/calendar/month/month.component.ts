@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { CalendarService } from '../calendar.service';
 import { Event } from '../../shared/interfaces/event';
 import { EventService } from '../../services/eventService.service';
 
@@ -10,16 +10,16 @@ import { EventService } from '../../services/eventService.service';
   templateUrl: './month.component.html',
   styleUrls: ['./month.component.sass']
 })
-export class MonthComponent implements OnInit {
+export class MonthComponent implements OnInit, OnDestroy {
   selectedDate: Date;
   globalLang: string;
   days: Date[][];
   events: Event[];
-  monthEventsSubscription: Subscription;
+  private eventsSubscription: Subscription;
 
   constructor(
-    private calendarService: CalendarService,
     private eventService: EventService,
+    private router: Router,
     private translateService: TranslateService
   ) {
     this.selectedDate = new Date();
@@ -57,7 +57,7 @@ export class MonthComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.monthEventsSubscription = this.eventService.getEvents().subscribe((eventsList: Event[]) => {
+    this.eventsSubscription = this.eventService.getEvents().subscribe((eventsList: Event[]) => {
       this.events = eventsList;
     });
   }
@@ -82,6 +82,11 @@ export class MonthComponent implements OnInit {
   }
 
   showDay(day: Date): void {
+    day.setHours(0, 0, 0, 0);
+    this.router.navigate(['app/calendar/day', day.getTime()]);
+  }
 
+  public ngOnDestroy(): void {
+    this.eventsSubscription.unsubscribe();
   }
 }
