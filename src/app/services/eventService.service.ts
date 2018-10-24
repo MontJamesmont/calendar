@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
@@ -16,5 +16,9 @@ export class EventService {
 
   public getEvents = (): Observable<Event[]> => {
     return this.http.get<Event[]>(this.events);
+  }
+
+  public updateEvent = (event: Event): Observable<Event> => {
+    return this.http.post<Event>(this.events, event);
   }
 }

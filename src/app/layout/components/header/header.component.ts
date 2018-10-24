@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
@@ -16,8 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Input() notificationsCount: number;
 
   constructor(
-    private translateService: TranslateService,
-    private router: Router
+    private translateService: TranslateService
   ) {
     this.notificationsCount = 0;
   }

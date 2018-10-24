@@ -10,11 +10,12 @@ import { EventService } from '../../services/eventService.service';
   templateUrl: './month.component.html',
   styleUrls: ['./month.component.sass']
 })
-export class MonthComponent implements OnInit, OnDestroy {
+export class MonthComponent implements OnInit {
   selectedDate: Date;
   globalLang: string;
   days: Date[][];
   events: Event[];
+  isEditArray: number[];
   private eventsSubscription: Subscription;
 
   constructor(
@@ -25,6 +26,7 @@ export class MonthComponent implements OnInit, OnDestroy {
     this.selectedDate = new Date();
     this.selectedDate.setHours(0, 0, 0, 0);
     this.events = [];
+    this.isEditArray = [];
 
     this.globalLang = this.translateService.currentLang;
     this.fillDays();
@@ -57,7 +59,11 @@ export class MonthComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.eventsSubscription = this.eventService.getEvents().subscribe((eventsList: Event[]) => {
+    this.getEvents();
+  }
+
+  getEvents(): void {
+    this.eventService.getEvents().subscribe((eventsList: Event[]) => {
       this.events = eventsList;
     });
   }
@@ -86,7 +92,24 @@ export class MonthComponent implements OnInit, OnDestroy {
     this.router.navigate(['app/calendar/day', day.getTime()]);
   }
 
-  public ngOnDestroy(): void {
-    this.eventsSubscription.unsubscribe();
+  editEvent(event: Event): void {
+    if (!this.isEdit(event)) this.isEditArray.push(event.id);
+  }
+
+  isEdit(event: Event): boolean {
+    const id = this.isEditArray.find((eventId) => {
+      return eventId === event.id;
+    });
+
+    return id ? true : false;
+  }
+
+  save(event: Event): void {
+    this.isEditArray = this.isEditArray.filter((id: number) => {
+      return id !== event.id;
+    });
+    this.eventService.updateEvent(event).subscribe(res => {
+      this.getEvents();
+    });
   }
 }

@@ -14,8 +14,15 @@
       <div class="month-days-week-day" *ngFor="let day of week">
         <div class="month-days-week-dayNumber">{{day.getDate()}}</div>
         <div *ngFor="let event of getEventsInDay(day) | slice:0:2;">
-          <div class="month-days-week-dayEvent" *ngIf="isEventDay(event, day)">
+          <div class="month-days-week-dayEvent" *ngIf="isEventDay(event, day) && !isEdit(event)" (click)="editEvent(event)">
             {{event.type}}
+          </div>
+          <div class="month-days-week-dayEventEdit" *ngIf="isEdit(event)">
+            <input type="text" [(ngModel)]="event.type">
+            <input type="text" [(ngModel)]="event.members">
+            <button type="button" class="month-days-week-day-showMore btn btn-primary" (click)="save(event)">
+              {{'save' | translate}}
+            </button>
           </div>
         </div>
         <button type="button" class="month-days-week-day-showMore btn btn-primary" *ngIf="getEventsInDay(day).length > 2"
@@ -25,4 +32,3 @@
       </div>
     </div>
   </div>
-</div>
