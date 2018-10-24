@@ -22,8 +22,10 @@
       
       &-day
         width: 10%
+        min-width: 100px
         border: 1px $black solid
         text-align: center
+        position: relative
 
         &Number
           width: 20px
@@ -33,14 +35,31 @@
           border-right: 1px $black solid
           border-bottom: 1px $black solid
 
-        &Event
+        &Event, &EventEdit
           margin: 2px 5px
-          height: 20px
           line-height: 18px
           text-align: center
           border: 1px $black solid
           border-radius: 2px
+          cursor: pointer
+
+        &Event
+          height: 20px
+
+        &EventEdit
+          min-height: 20px
+          position: absolute
+          background-color: $white
+          z-index: 1
+          width: auto
+          left: calc( -50% - 2.5px )
+
+          input
+            margin: 5px
 
         &-showMore
           margin: 2px 5px
+          height: 20px
+          line-height: 6px
+          font-size: 0.8rem
 

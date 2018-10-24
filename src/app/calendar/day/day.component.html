@@ -4,7 +4,7 @@
     <div class="day-event" *ngFor="let event of events">
       <div class="day-event-type">{{event.type}}</div>
       <div class="day-event-members">
-        <span class="day-event-member" *ngFor="let member of event.members">{{member}}</span>
+        <span class="day-event-members">{{event.members}}</span>
       </div>
     </div>
   </div>

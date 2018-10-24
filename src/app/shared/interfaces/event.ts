@@ -1,6 +1,6 @@
 export interface Event {
   type: string;
-  members: string[];
+  members: string;
   id: number;
   date: number;
 }
