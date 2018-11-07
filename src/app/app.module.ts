@@ -36,7 +36,6 @@ export function TranslateLoaderFactory(http: HttpClient) {
       InMemoryDataService, { dataEncapsulation: false, passThruUnknownUrl: true }
     ),
     InlineSVGModule.forRoot({ baseUrl: '/assets/icon/' }),
-    HttpClientModule,
     LayoutModule,
     AppRoutingModule
   ],

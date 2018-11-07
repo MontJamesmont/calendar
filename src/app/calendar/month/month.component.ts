@@ -15,6 +15,7 @@ export class MonthComponent implements OnInit {
   globalLang: string;
   days: Date[][];
   events: Event[];
+  newEvent;
   isEditArray: number[];
   private eventsSubscription: Subscription;
 
@@ -74,6 +75,20 @@ export class MonthComponent implements OnInit {
     });
   }
 
+  addNewEvent($event: any, day: Date): void {
+    day.setHours(0, 0, 0, 0);
+    this.newEvent = { type: $event.dragData, date: day.getTime(), members: '' };
+  }
+
+  isNewEventInDay(day: Date): boolean {
+    day.setHours(0, 0, 0, 0);
+    return this.newEvent ? day.getTime() === this.newEvent.date : false;
+  }
+
+  cancel(): void {
+    this.newEvent = undefined;
+  }
+
   isEventDay(event: Event, day: Date): boolean {
     day.setHours(0, 0, 0, 0);
     if (day.getTime() === event.date) return true;
@@ -110,6 +125,7 @@ export class MonthComponent implements OnInit {
     });
     this.eventService.updateEvent(event).subscribe(res => {
       this.getEvents();
+      if (!event.id) this.newEvent = undefined;
     });
   }
 }
