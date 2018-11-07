@@ -6,11 +6,14 @@ import { MainComponent } from './layout/components/main/main.component';
 
 const routes: Routes = [
   {
-    path: '', redirectTo: '/app', pathMatch: 'full'
+    path: '', redirectTo: '/app/calendar/month', pathMatch: 'full'
+  },
+  {
+    path: '**', redirectTo: '/app/calendar/month', pathMatch: 'full'
   },
   {
     path: 'app', component: MainComponent, children: [
-      { path: '', redirectTo: '/app/calendar', pathMatch: 'full' },
+      { path: '', redirectTo: '/app/calendar/month', pathMatch: 'full' },
       { path: 'calendar', loadChildren: './calendar/calendar.module#CalendarModule' }
     ]
   }

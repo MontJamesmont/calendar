@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-
-import { SharedModule } from '../shared/shared.module';
 import { MomentModule } from 'angular2-moment';
-
+import { DndModule } from 'ng2-dnd';
+import { SharedModule } from '../shared/shared.module';
 import { CalendarComponent } from './calendar.component';
 import { MonthComponent } from './month/month.component';
 import { DayComponent } from './day/day.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 const routes: Routes = [
   {
@@ -25,15 +25,17 @@ const routes: Routes = [
     CommonModule,
     SharedModule,
     MomentModule,
+    DndModule.forRoot(),
     FormsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [
     CalendarComponent,
     MonthComponent,
+    SidebarComponent,
     DayComponent
   ],
   providers: [],
-  exports: []
+  exports: [DndModule]
 })
 export class CalendarModule { }

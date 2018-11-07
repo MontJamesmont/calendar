@@ -1,0 +1,12 @@
+<div class="blocks">
+  <ng-container>
+    <div class="block" *ngFor="let block of types" [dragData]="block" dnd-draggable>
+      <div class="block-header">{{ block }}</div>
+      <div class="block-body">
+        <div class="block-content">
+          <div class="title">{{ block }}</div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
